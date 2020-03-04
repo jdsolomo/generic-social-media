@@ -119,7 +119,7 @@ bool Date::set_date(int day, int month, int year){
     if (check_date()==false){
         cout << "Error! Invalid date!" << endl;
         cout << "Date set to default!" << endl;
-        // Bug Here (changed to specify scope as being within the class not function)
+        // Bug was here (changed to specify scope as being within the class not function)
         this->day = 1;
         this->month = 1;
         this->year = 1970;
