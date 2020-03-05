@@ -48,22 +48,22 @@ Phone::Phone(string type, string num){
     // Account for possibility of a "(" or ")" in the num string
     std::size_t pos = num.find("(");
     if(pos != std::string::npos){
-        num.erase(pos);
+        num.erase(pos,1);
     }
     pos = num.find(")");
     if(pos != std::string::npos){
-        num.erase(pos);
+        num.erase(pos,1);
     }
 
     // Account for the possibility of a "-" in the num string
     pos = num.find("-");
     while(pos != std::string::npos){
-        num.erase(pos);
+        num.erase(pos,1);
         pos = num.find("-");
     }
 
     // Check that the number has enough digits
-    if(num.length() > 10 || num.length() < 8){
+    if(num.length() > 11 || num.length() < 10){
         cout << "INIT FAILED" << endl;
         cout << "Phone number set to default" << endl;
         phone_num = "1234567890";

@@ -13,7 +13,6 @@ Person::~Person(){
     delete phone;
 }
 
-
 Person::Person(string fname, string lname, string bdate, string email, string phone){
     // Method completed
     // phone and email strings are in full version
@@ -24,14 +23,20 @@ Person::Person(string fname, string lname, string bdate, string email, string ph
 
     birthdate = new Date(bdate);
 
+    string type = "Deafult", temp = "1234567890";
+
     size_t start = email.find("("), end = email.find(")");
-    string type = email.substr(start + 1, end - start - 1);
-    string temp = email.substr(end + 2);
+    if(start != std::string::npos && end != std::string::npos){
+        type = email.substr(start + 1, end - start - 1);
+        temp = email.substr(end + 2);
+    }
     this->email = new Email(type, temp);
 
     start = phone.find("("), end = phone.find(")");
-    type = phone.substr(start + 1, end - start - 1);
-    temp = phone.substr(end + 2);
+    if(start != std::string::npos && end != std::string::npos){
+        type = phone.substr(start + 1, end - start - 1);
+        temp = phone.substr(end + 2);
+    }
     this->phone = new Phone(type, temp);
 }
 
@@ -86,7 +91,8 @@ void Person::set_person(string filename){
     // Look at person_template files as examples.     
     // Phone number in files can have '-' or not.
     // Method completed
-    ifstream input_file (filename);
+    ifstream input_file(filename.c_str());
+
 
     if(input_file.is_open()){
         string type;

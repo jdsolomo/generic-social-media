@@ -5,7 +5,9 @@
 #include "person.h"
 #include "date.h"
 // You may need to add more libraries 
+#include <dirent.h>
 #include <stdlib.h>
+#include <vector>
 class Network{
 
     private:
