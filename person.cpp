@@ -132,7 +132,7 @@ bool Person::operator==(const Person& rhs){
 
     if (!(f_name.compare(rhs.f_name)) &&
         !(l_name.compare(rhs.l_name)) &&
-        birthdate == rhs.birthdate){
+        *birthdate == *(rhs.birthdate)){
         return true;
     }
     else{

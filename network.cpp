@@ -161,7 +161,7 @@ Person* Network::search(string fname, string lname, string bdate){
     Person *temp = head;
 
     while(temp != NULL){
-        if(temp == searchEntry){
+        if(*temp == *searchEntry){
             delete searchEntry;
             return temp;
         }
@@ -178,8 +178,18 @@ bool Network::remove(string fname, string lname, string bdate){
     // Don't forget to delete allocated memory, change count and returning values!
     Person* toDelete = search(fname, lname, bdate);
     if(toDelete != NULL){
-        toDelete->prev->next = toDelete->next;
-        toDelete->next->prev = toDelete->prev;
+        if(toDelete->prev != NULL){
+            toDelete->prev->next = toDelete->next;
+        }
+        else{
+            head = toDelete->next;
+        }
+        if(toDelete->next != NULL){
+            toDelete->next->prev = toDelete->prev;
+        }
+        else{
+            tail = toDelete->prev;
+        }
         delete toDelete;
         count--;
         return true;
@@ -299,9 +309,9 @@ void Network::showMenu(){
             // Completed
             cout << "Searching: \n";
             cout << "First Name: ";
-            cin >> fname;
+            std::getline(std::cin, fname);
             cout << "Last Name: ";
-            cin >> lname;
+            std::getline(std::cin, lname);
             cout << "Birthdate (M/D/YYYY): ";
             cin >> bdate;
             // if found: print person's firstname, lastname, bdate, email, phone using print_person()
@@ -320,9 +330,9 @@ void Network::showMenu(){
             // Completed
             cout << "Removing a person \n";
             cout << "First name: ";
-            cin >> fname;
+            std::getline(std::cin, fname);
             cout << "Last name: ";
-            cin >> lname;
+            std::getline(std::cin, lname);
             cout << "Birthdate (M/D/YYYY): ";
             cin >> bdate;
             // if found, cout << "Remove Successful! \n";
