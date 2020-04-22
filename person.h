@@ -5,6 +5,9 @@
 #include "date.h"
 #include "contact.h"
 #include "fstream"
+#include "misc.h"
+#include <vector>
+#include <algorithm>
 class Person{
     friend class Network;
 
@@ -14,6 +17,7 @@ private:
 	Date *birthdate;
     Email *email;
     Phone *phone;
+    vector<Person*> friends;
     // the following to attributes are used in the linked list.
     Person* next;
     Person* prev;
@@ -28,6 +32,8 @@ public:
 	void set_person(string filename);
     bool operator==(const Person& rhs);
     bool operator!=(const Person& rhs);
+    void addFriend(Person* newFriend);
+    void save_person(ofstream &outfile);
 };
 
 

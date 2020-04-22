@@ -1,20 +1,20 @@
 
 #include "person.h"
 
+// Person Constructor
 Person::Person(){
-    // I'm already done! 
     set_person();
 }
 
-
+// Person Destructor
 Person::~Person(){
     delete birthdate;
     delete email;
     delete phone;
 }
 
+// Person Contructor with params
 Person::Person(string fname, string lname, string bdate, string email, string phone){
-    // Method completed
     // phone and email strings are in full version
 
     f_name = fname;
@@ -40,12 +40,12 @@ Person::Person(string fname, string lname, string bdate, string email, string ph
     this->phone = new Phone(type, temp);
 }
 
-
+// Person Constructor with file
 Person::Person(string filename){
     set_person(filename);
 }
 
-
+// Prompts user for info to create new Person
 void Person::set_person(){
     // prompts for the information of the user from the terminal
     // first/last name can have spaces!
@@ -85,12 +85,11 @@ void Person::set_person(){
     phone = new Phone(type, temp);
 }
 
-
+// Gathers info from file to create new Person
 void Person::set_person(string filename){
     // reads a Person from a file
     // Look at person_template files as examples.     
     // Phone number in files can have '-' or not.
-    // Method completed
     ifstream input_file(filename.c_str());
 
 
@@ -124,14 +123,15 @@ void Person::set_person(string filename){
     }
 }
 
-
+// Determines if two people are equal independent of case
 bool Person::operator==(const Person& rhs){
-    // Method completed
     // Note: you should check first name, last name and birthday between two persons
     // refer to bool Date::operator==(const Date& rhs)
+    string f1 = toLower(f_name), l1 = toLower(l_name);
+    string f2 = toLower(rhs.f_name), l2 = toLower(rhs.l_name);
 
-    if (!(f_name.compare(rhs.f_name)) &&
-        !(l_name.compare(rhs.l_name)) &&
+    if (!(f1.compare(f2)) &&
+        !(l1.compare(l2)) &&
         *birthdate == *(rhs.birthdate)){
         return true;
     }
@@ -140,17 +140,37 @@ bool Person::operator==(const Person& rhs){
     }
 }
 
+// Determines if two people are not equal independent of case
 bool Person::operator!=(const Person& rhs){ 
-    // Method completed
     return !(*this == rhs);
 }
 
-
+// Prints a Person object
 void Person::print_person(){
-    // Already implemented for you! Do not change!
 	cout << l_name <<", " << f_name << endl;
 	birthdate->print_date("Month D, YYYY");
     email->print();
     phone->print();
+    vector<Person*>::iterator it;
+    for(it = friends.begin(); it != friends.end(); it++){
+        cout << IDName((*it)->f_name, (*it)->l_name) << endl;
+    }
 }
 
+// Adds a friend to the Person's friends vector
+void Person::addFriend(Person* newFriend){
+    friends.push_back(newFriend);
+}
+
+// Saves a Person's info to a file
+void Person::save_person(ofstream &outfile){
+    outfile << l_name << ", " << f_name << "\n";
+    outfile << birthdate->get_date() << "\n";
+    outfile << email->get_contact() << "\n";
+    outfile << phone->get_contact() << "\n";
+    vector<Person*>::iterator it;
+    for(it = friends.begin(); it != friends.end(); it++){
+        outfile << IDName((*it)->f_name, (*it)->l_name) << "\n";
+    }
+    outfile << "------------------------\n";
+}

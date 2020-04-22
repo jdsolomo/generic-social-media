@@ -15,6 +15,9 @@ class Network{
         Person* tail;
         int count; 
         Person* search(string fname, string lname, string bdate);
+        Person* search(string queryid);
+        vector< string > recursive_recommendation(int k, Person* temp, vector< Person* > v);
+        vector< string > combine_vecs(vector< string >& v1, vector< string >& v2);
 
     public:
         Network();
@@ -27,6 +30,7 @@ class Network{
         void loadDB(string filename);
         void printDB();
         void showMenu();
+        void friends_recommendation(int k);
 };
 
 #endif
