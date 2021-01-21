@@ -12,7 +12,7 @@ def IDName(f, l):
 test_network = open("test_network.db","w")
 names = {}
 names_arr = []
-for x in range(100):
+for x in range(1000):
 	name = faker.name()
 	names[name] = []
 	names_arr.append(name)
@@ -32,6 +32,8 @@ for x in names:
 		friend = names_arr[friend_num]
 		friend_arr = friend.split(" ")
 		friend_fname = friend_arr[0]
+		if friend_fname == "Mr." or friend_fname == "Dr." or friend_fname == "Mrs." or friend_fname == "Ms." or friend_fname == "Miss":
+			friend_fname = "John"
 		friend_lname = friend_arr[1]
 		friend_id = IDName(friend_fname, friend_lname)
 		if not friend_id in names[x] and friend_id != x_id:
